@@ -1,0 +1,27 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+#game{
+    max-width: 1000px;
+    background-color: aqua;
+    margin: auto;
+    display: flex;
+    flex-wrap: wrap;
+}
+img{
+    width: calc(100% / 6);
+    transition: 0.5s;
+}
+h1{
+    font-family: "Jersey 10 Charted", sans-serif;
+    text-align: center;
+    font-weight:normal
+      
+}
+.blocked{
+    pointer-events: none;
+}
+h2{
+    font-family: "Danfo", serif;
+}
