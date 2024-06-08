@@ -4,14 +4,14 @@
 }
 #game{
     max-width: 1000px;
-    background-color: aqua;
     margin: auto;
     display: flex;
     flex-wrap: wrap;
 }
 img{
-    width: calc(100% / 6);
+    width: calc(100% / 6 - 10px);
     transition: 0.5s;
+    margin:5px;
 }
 h1{
     font-family: "Jersey 10 Charted", sans-serif;
@@ -24,4 +24,81 @@ h1{
 }
 h2{
     font-family: "Danfo", serif;
+}
+#modal{
+    position: fixed;
+    backdrop-filter: blur(25px);
+    width: 100%;
+    height:100%;
+    z-index: 10;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition:0.3s;
+}
+#uwin{
+    text-align: center;
+    opacity:0;
+    
+}
+form button{
+    position:relative;
+  padding: 10px 20px;  
+  border: none;
+  background: none;
+  cursor: pointer;
+  font-weight: normal;
+  text-transform: uppercase;
+  font-size: 30px;  
+  font-family: "Lilita One", sans-serif;
+  /* background-color: hsl(210, 80%, 42%); */
+  box-shadow:hsla(210, 40%, 52%, .4)  2px 2px 22px;
+  border-radius: 4px; 
+  overflow: hidden; 
+  transition:0.3s;
+}
+#player{
+  color: red;
+}
+#p2{
+    color: blue;
+}
+#p3{
+     color: green;
+}
+#p4{
+    color:yellow;
+}
+#player:hover{
+    background-color: blue;
+}
+#p2:hover{
+    background-color:red;
+}
+#p3:hover{
+    background-color:yellow;
+}
+#p4:hover{
+    background-color:green;
+}
+.score{
+    opacity:0;
+}
+#score0{
+    color: red;
+    -webkit-text-stroke:2px black;
+    font-size: 30px;
+    font-weight:normal;
+}
+#score1{
+    color: blue;
+    -webkit-text-stroke:2px black;
+    font-size: 30px;
+    font-weight:normal;
+}
+#score2{
+    color:#00ff0055;
+    -webkit-text-stroke:2px black;
+    font-size: 30px;
+    font-weight:normal;
 }

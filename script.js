@@ -1,6 +1,22 @@
 let game = document.getElementById('game')
-let step=document.getElementById('step')
-let attempts=0
+let step = document.getElementById('step')
+let player = document.getElementById('player')
+let p2 = document.getElementById('p2')
+let mode = 1
+let playerN = 0
+let red = 0
+let blue = 0
+let green = 0
+let yellow = 0
+let score0 = document.getElementById('score0')
+let score1 = document.getElementById('score1')
+let score2 = document.getElementById('score2')
+let score3 = document.getElementById('score3')
+let modal = document.getElementById('modal')
+let uwin = document.getElementById('uwin')
+let counter = 0
+let pairs = 0
+let attempts = 0
 let openCards = []
 let imageNames = [
     "3ffc005a-43e2-4ef3-8a3a-e3bc0fa5ba60.jpeg",
@@ -33,34 +49,116 @@ let imageNames = [
     "e614930134989d8b27b09b2c0707c66a--giraffe-facts-for-kids-giraffe-craft-for-adults.jpg",
     "f1550f4a-2889-412c-bab2-e07643538ecd_1620157371867.jpg",
     "FUKEsZsGRuQzl27aqd74EFligGe6SEdyp7DFqAz6CNL5n-tPRboGJmn8WY32IrKb_hlTIKa4.jpg",
-    ]
-    imageNames.sort(()=>Math.random()-0.5);
+]
+player.onclick = function (event) {
+    event.preventDefault();
+    modal.style.opacity = 0
+    modal.style.pointerEvents = 'none'
+}
+p2.onclick = function (event) {
+    event.preventDefault();
+    modal.style.opacity = 0
+    modal.style.pointerEvents = 'none'
+    step.style.opacity = 0
+    score0.style.opacity = 1
+    score1.style.opacity = 1
+    mode = 2
+    playerN = Math.floor(Math.random() * 2)
+    if (playerN == 0) {
+        document.body.style.backgroundColor = '#ff000055'
+    }
+    else {
+        document.body.style.backgroundColor = '#0000ff55'
+    }
+}
+p3.onclick = function (event) {
+    event.preventDefault();
+    modal.style.opacity = 0
+    modal.style.pointerEvents = 'none'
+    step.style.opacity = 0
+    score0.style.opacity = 1
+    score1.style.opacity = 1
+    score2.style.opacity = 1
+    mode = 3
+    playerN = Math.floor(Math.random() * mode)
+    if (playerN == 0) {
+        document.body.style.backgroundColor = '#ff000055'
+    }
+    else if (playerN == 1) {
+        document.body.style.backgroundColor = '#0000ff55'
+    }
+    else {
+        document.body.style.backgroundColor = '#00ff0055'
+    }
+}
+imageNames.sort(() => Math.random() - 0.5);
 for (let i = 0; i < 30; i++) {
     let img = document.createElement('img')
     img.classList.add('card')
     img.src = 'card.jpg'
     game.appendChild(img)
     img.onclick = function () {
-        
+        let cards = document.getElementsByClassName('card')
+        counter++
+        if (counter == 2) {
+            for (let card of cards) {
+                card.classList.add('blocked')
+            }
+        }
         img.style.transform = 'scaleX(0)'
         setTimeout(function () {
             openCards.push(img)
             img.src = imageNames[i]
             img.style.transform = 'scaleX(1)'
             if (openCards.length == 2) {
-                console.log(openCards[0].src, openCards[1].src);
                 if (openCards[0].src == openCards[1].src) {
                     console.log('yes');
+                    if (playerN == 0) {
+                        red = red + 1
+                    }
+                    else if (playerN == 1) {
+                        blue = blue + 1
+                    }
+                    else if (playerN == 2) {
+                        green = green + 1
+                    }
+                    else {
+                        yellow = yellow + 1
+                    }
+                    score0.innerHTML = 'Score:' + red
+                    score1.innerHTML = 'Score:' + blue
+                    pairs = pairs + 1
+                    if (pairs == 15) {
+                        console.log('WIN')
+                        if (mode == 2) {
+                            if (red > blue && red > green && red > yellow) {
+                                uwin.innerHTML = 'RED WIN'
+                            }
+                            else if(blue>red && blue>green && blue>yellow){
+                                uwin.innerHTML = 'BLUE WIN'
+                            }
+                            else if(green>red && green>blue && green>yellow){
+                                uwin.innerHTML='GREEN WIN'
+                            }
+                            else {
+                                uwin.innerHTML='YELLOW WIN'                          
+                            }
+                             
+                        }
+                        uwin.style.opacity = 1
+                    }
                     openCards[0].classList.add('blocked')
                     openCards[1].classList.add('blocked')
-                    openCards=[]
+                    openCards = []
+                    counter = 0
+                    for (let card of cards) {
+                        if (card.src.includes('card.jpg')) {
+                            card.classList.remove('blocked')
+                        }
+                    }
                 }
                 else {
                     console.log('no');
-                    let cards=document.getElementsByClassName('card')
-                    for(let card of cards){
-                        card.classList.add('blocked')
-                    }
                     setTimeout(() => {
                         openCards[0].style.transform = 'scaleX(0)';
                         openCards[1].style.transform = 'scaleX(0)';
@@ -69,18 +167,32 @@ for (let i = 0; i < 30; i++) {
                             openCards[1].src = 'card.jpg'
                             openCards[0].style.transform = 'scaleX(1)';
                             openCards[1].style.transform = 'scaleX(1)';
-                            openCards=[]
-                            for(let card of cards){
-                                console.log(card.src);
-                                if(card.src.includes('card.jpg')){
+                            openCards = []
+                            counter = 0
+                            if (mode == 2) {
+                                if (playerN == 0) {
+                                    playerN = 1
+                                    document.body.style.backgroundColor = '#0000ff55'
+                                }
+                                // else if(playerN==0){
+                                //     playerN=1
+                                //     document.body.style.backgroundColor = '#00ff0055'
+                                // }
+                                else {
+                                    playerN = 0
+                                    document.body.style.backgroundColor = '#ff000055'
+                                }
+                            }
+                            for (let card of cards) {
+                                if (card.src.includes('card.jpg')) {
                                     card.classList.remove('blocked')
                                 }
                             }
                         }, 500);
                     }, 1000);
                 }
-                attempts=attempts+1
-                step.innerHTML='Attempts:'+attempts
+                attempts = attempts + 1
+                step.innerHTML = 'Attempts:' + attempts
             }
         }, 500)
     }
