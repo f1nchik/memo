@@ -118,7 +118,7 @@ p4.onclick = function (event) {
         document.body.style.backgroundColor = '#ffff0055'
     }
 }
-// imageNames.sort(() => Math.random() - 0.5);
+imageNames.sort(() => Math.random() - 0.5);
 for (let i = 0; i < 30; i++) {
     let img = document.createElement('img')
     img.classList.add('card')
