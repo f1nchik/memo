@@ -2,6 +2,8 @@ let game = document.getElementById('game')
 let step = document.getElementById('step')
 let player = document.getElementById('player')
 let p2 = document.getElementById('p2')
+let p3 = document.getElementById('p3')
+let p4 = document.getElementById('p4')
 let mode = 1
 let playerN = 0
 let red = 0
@@ -91,7 +93,32 @@ p3.onclick = function (event) {
         document.body.style.backgroundColor = '#00ff0055'
     }
 }
-imageNames.sort(() => Math.random() - 0.5);
+p4.onclick = function (event) {
+    event.preventDefault();
+    modal.style.opacity = 0
+    modal.style.pointerEvents = 'none'
+    step.style.opacity = 0
+    score0.style.opacity = 1
+    score1.style.opacity = 1
+    score2.style.opacity = 1
+    score3.style.opacity = 1
+    mode = 4
+    playerN = Math.floor(Math.random() * mode)
+    // playerN = 3
+    if (playerN == 0) {
+        document.body.style.backgroundColor = '#ff000055'
+    }
+    else if (playerN == 1) {
+        document.body.style.backgroundColor = '#0000ff55'
+    }
+    else if (playerN == 2) {
+        document.body.style.backgroundColor = '#00ff0055'
+    }
+    else {
+        document.body.style.backgroundColor = '#ffff0055'
+    }
+}
+// imageNames.sort(() => Math.random() - 0.5);
 for (let i = 0; i < 30; i++) {
     let img = document.createElement('img')
     img.classList.add('card')
@@ -100,6 +127,7 @@ for (let i = 0; i < 30; i++) {
     img.onclick = function () {
         let cards = document.getElementsByClassName('card')
         counter++
+        img.classList.add('blocked')
         if (counter == 2) {
             for (let card of cards) {
                 card.classList.add('blocked')
@@ -127,23 +155,25 @@ for (let i = 0; i < 30; i++) {
                     }
                     score0.innerHTML = 'Score:' + red
                     score1.innerHTML = 'Score:' + blue
+                    score2.innerHTML = 'Score:' + green
+                    score3.innerHTML = 'Score:' + yellow
                     pairs = pairs + 1
                     if (pairs == 15) {
                         console.log('WIN')
-                        if (mode == 2) {
+                        if (mode>1) {
                             if (red > blue && red > green && red > yellow) {
                                 uwin.innerHTML = 'RED WIN'
                             }
-                            else if(blue>red && blue>green && blue>yellow){
+                            else if (blue > red && blue > green && blue > yellow) {
                                 uwin.innerHTML = 'BLUE WIN'
                             }
-                            else if(green>red && green>blue && green>yellow){
-                                uwin.innerHTML='GREEN WIN'
+                            else if (green > red && green > blue && green > yellow) {
+                                uwin.innerHTML = 'GREEN WIN'
                             }
                             else {
-                                uwin.innerHTML='YELLOW WIN'                          
+                                uwin.innerHTML = 'YELLOW WIN'
                             }
-                             
+
                         }
                         uwin.style.opacity = 1
                     }
@@ -174,10 +204,38 @@ for (let i = 0; i < 30; i++) {
                                     playerN = 1
                                     document.body.style.backgroundColor = '#0000ff55'
                                 }
-                                // else if(playerN==0){
-                                //     playerN=1
-                                //     document.body.style.backgroundColor = '#00ff0055'
-                                // }
+                                else {
+                                    playerN = 0
+                                    document.body.style.backgroundColor = '#ff000055'
+                                }
+                            }
+                            if (mode == 3) {
+                                if (playerN == 0) {
+                                    playerN = 1
+                                    document.body.style.backgroundColor = '#0000ff55'
+                                }
+                                else if (playerN == 1) {
+                                    playerN = 2
+                                    document.body.style.backgroundColor = '#00ff0055'
+                                }
+                                else {
+                                    playerN = 0
+                                    document.body.style.backgroundColor = '#ff000055'
+                                }
+                            }
+                            if(mode==4){
+                                if (playerN == 0) {
+                                    playerN = 1
+                                    document.body.style.backgroundColor = '#0000ff55'
+                                }
+                                else if (playerN == 1) {
+                                    playerN = 2
+                                    document.body.style.backgroundColor = '#00ff0055'
+                                }
+                                else if(playerN==2){
+                                    playerN=3
+                                    document.body.style.backgroundColor='#ffff0055'
+                                }
                                 else {
                                     playerN = 0
                                     document.body.style.backgroundColor = '#ff000055'
